@@ -33,3 +33,6 @@ App:Listen()
 
 ## License
 - [MIT](https://github.com/zeykatecool/Luon/blob/main/LICENSE)
+
+### Help
+- You can ask your questions at [LuaRT Discord Server](https://discord.gg/aAZ7jAVMC5).
