@@ -3,7 +3,7 @@
 - Making TCP and HTTP usage easier.
 
 # Installation
-- You can download the `luon` folder and require it from your main script.
+- You can download the files and require it from your main script.
 
 # Usage Example
 - Check [docs](https://github.com/zeykatecool/Luon/tree/main/docs/) to see how to use Luon.
