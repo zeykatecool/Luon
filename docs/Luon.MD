@@ -5,6 +5,7 @@
 - It does not return the socket but we connect two tables together with metatable.
 - It will run Luon function if it exists,if not it will search in the LuaRT Net Socket functions.
 - Anyways,if you are going to work with LuaRT Net Socket functions,then you can use `App.Socket`,it will return the socket object of the Luon server working on.
+- You can see all LuaRT Net Socket functions and properties [here](https://luart.org/doc/net/Socket.html).
 ```lua
 require("luon.luon")
 local App = Luon.Server("127.0.0.1", 5000) -- Returns Luon server control table that delegates socket calls via metatable
