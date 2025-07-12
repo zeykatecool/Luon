@@ -115,13 +115,13 @@ local function handleRequestWithMiddleware(server, req, res, handler)
     next()
 end
 
-function Luon.Server(Host, Port)
+function Luon.Server(Host, Port,Options)
     if not Net.isalive then
         error("Could not connect to network.")
     end
     assert(Host, "No host provided.")
     assert(Port, "No port provided.")
-
+    Options = Options or {}
     local serverSocket = Net.Socket(Host, Port)
     local server = {
         routes = {
@@ -133,6 +133,8 @@ function Luon.Server(Host, Port)
         };
         Run = true;
         middlewares = {};
+        tls = Options.tls;
+        isSecure = false;
     }
 
     function server:Use(middlewareFn)
@@ -173,12 +175,29 @@ function Luon.Server(Host, Port)
         self.isRunning = false
     end
 
-    function server:Listen()
+   function server:Listen()
     serverSocket:bind()
-    print("Listening on http://" .. Host .. ":" .. Port)
+    local protocol = server.tls and "https" or "http"
+    print("Listening on " .. protocol .. "://" .. Host .. ":" .. Port)
+
     while server.Run do
         local client = serverSocket:accept()
         if client then
+            if server.tls then
+                local cert = server.tls.cert or ""
+                local password = server.tls.password or ""
+                local ok = client:starttls(cert, password)
+                server.isSecure = true
+                if not ok then
+                    print("TLS Handshake Failed.")
+                    print("NetError: "..Net.error)
+                    client:send("HTTP/1.1 495 TLS Handshake Failed\r\n\r\nTLS Error")
+                    --client:close()
+                    server.isSecure = false
+                    goto continue
+                end
+            end
+
             local rawRequest = receiveFullRequest(client)
             if rawRequest then
                 local req = Request.new(rawRequest)
@@ -194,6 +213,7 @@ function Luon.Server(Host, Port)
             end
             client:close()
         end
+        ::continue::
     end
 end
 
