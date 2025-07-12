@@ -8,6 +8,12 @@
 ```lua
 require("luon.luon")
 local App = Luon.Server("127.0.0.1", 5000) -- Returns Luon server control table that delegates socket calls via metatable
+
+--[[
+    local App = Luon.Server("127.0.0.1", 5000, {tls = {cert = "PATH_FOR_PFX", password = "PASSWORD"}})
+    - You can use TLS by adding the `tls` table to the options.
+]]
+
 local Socket = App.Socket -- Returns the socket object of the Luon server working on
 
 print(App.blocking) -- Control Table does not have blocking property,so it connects to LuaRT Net Socket functions and gets blocking property.
