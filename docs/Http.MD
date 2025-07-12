@@ -1,6 +1,7 @@
 # Docs
 
 ## Sending Web Requests with Luon Http
+- You can see all LuaRT Net HTTP functions and properties [here](https://luart.org/doc/net/Http.html).
 ```lua
 require("luon.http")
 Http:get("https://example.com", function(client, response)
