@@ -18,7 +18,7 @@ function Luon:parseUrl(Url)
 end
 
 function Luon:getMime(FileName)
-    return Net.getMime(FileName)
+    return Net.getmime(FileName)
 end
 
 function Luon:getAdapters()
