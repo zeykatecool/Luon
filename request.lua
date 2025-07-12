@@ -31,7 +31,9 @@ function Request.new(raw)
 
     self.Method = string.match(raw, "^(%u+)")
     local fullPath = string.match(raw, "%u+%s+([^%s]+)")
-
+    if fullPath == nil then
+        fullPath = ""
+    end
     local path, query = fullPath:match("([^%?]+)%??(.*)")
     self.Path = path
     self.Query = parseQueryString(query)
