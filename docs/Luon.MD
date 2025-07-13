@@ -11,8 +11,9 @@ require("luon.luon")
 local App = Luon.Server("127.0.0.1", 5000) -- Returns Luon server control table that delegates socket calls via metatable
 
 --[[
-    local App = Luon.Server("127.0.0.1", 5000, {tls = {cert = "PATH_FOR_PFX", password = "PASSWORD"}})
-    - You can use TLS by adding the `tls` table to the options.
+    local App = Luon.Server("smtp.gmail.com", 587, {tls = {cert = "PATH_FOR_PFX", password = "PASSWORD"}})
+    -- You can use TLS by adding the `tls` table to the options.
+    -- If tls table exists but it's empty,it will use the certificate from the server.
 ]]
 
 local Socket = App.Socket -- Returns the socket object of the Luon server working on

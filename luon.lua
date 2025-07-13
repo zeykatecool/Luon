@@ -184,8 +184,12 @@ function Luon.Server(Host, Port,Options)
         local client = serverSocket:accept()
         if client then
             if server.tls then
-                local cert = server.tls.cert or ""
-                local password = server.tls.password or ""
+                local cert = server.tls.cert
+                local password = server.tls.password
+                if not cert then
+                    cert = nil
+                    password = nil
+                end
                 local ok = client:starttls(cert, password)
                 server.isSecure = true
                 if not ok then
